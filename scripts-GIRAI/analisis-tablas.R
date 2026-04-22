@@ -9,6 +9,7 @@ library(janitor)
 # Fijo el dataset
 attach(datos)
 
+# Regiones
 tabla_region <- tabyl(datos, GIRAI_region)
 
 tabla_region %>% 
