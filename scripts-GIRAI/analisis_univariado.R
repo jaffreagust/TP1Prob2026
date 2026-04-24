@@ -104,7 +104,7 @@ ggplot(datos, aes(x = sec_mng, fill = sec_mng)) +
   
   labs(
     title = "Frecuencia de Países por Nivel de Madurez Normativa",
-    subtitle = paste("Medida de posición central (Mediana):", mediana_cat),
+    subtitle = paste("Medida de posición central (Moda):", mediana_cat),
     x = "Nivel de Desarrollo (sec_mng)",
     y = "Cantidad de Países",
     caption = "Nota: La dispersión se analiza mediante la amplitud de la distribución."
