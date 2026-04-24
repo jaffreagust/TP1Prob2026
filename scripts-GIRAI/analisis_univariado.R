@@ -1,4 +1,5 @@
-
+library(ggplot2)
+library(dplyr)
 #mng
 # Calculamos la mediana de antemano
 mediana_mng <- median(datos$mng, na.rm = TRUE)
