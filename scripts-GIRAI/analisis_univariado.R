@@ -69,7 +69,7 @@ ggplot(resumen_frecuencias, aes(x = areas_mng, y = frecuencia)) +
            label = paste("Mediana:", mediana_val), color = "firebrick", fontface = "bold", hjust = 0) +
   
   labs(
-    title = "Diversidad Legislativa: Áreas Temáticas (areas_mng)",
+    title = "Diversidad Legislativa: Áreas Temáticas",
     subtitle = "Sombreado: Dispersión (Media ± 1 Desv. Estándar)",
     x = "Cantidad de Áreas Reguladas",
     y = "Número de Países (Frecuencia)"
