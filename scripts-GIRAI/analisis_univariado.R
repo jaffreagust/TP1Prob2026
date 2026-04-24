@@ -1,4 +1,5 @@
-
+library(ggplot2)
+library(dplyr)
 #mng
 # Calculamos la mediana de antemano
 mediana_mng <- median(datos$mng, na.rm = TRUE)
@@ -68,7 +69,7 @@ ggplot(resumen_frecuencias, aes(x = areas_mng, y = frecuencia)) +
            label = paste("Mediana:", mediana_val), color = "firebrick", fontface = "bold", hjust = 0) +
   
   labs(
-    title = "Diversidad Legislativa: Áreas Temáticas (areas_mng)",
+    title = "Diversidad Legislativa: Áreas Temáticas",
     subtitle = "Sombreado: Dispersión (Media ± 1 Desv. Estándar)",
     x = "Cantidad de Áreas Reguladas",
     y = "Número de Países (Frecuencia)"
@@ -103,7 +104,7 @@ ggplot(datos, aes(x = sec_mng, fill = sec_mng)) +
   
   labs(
     title = "Frecuencia de Países por Nivel de Madurez Normativa",
-    subtitle = paste("Medida de posición central (Mediana):", mediana_cat),
+    subtitle = paste("Medida de posición central (Moda):", mediana_cat),
     x = "Nivel de Desarrollo (sec_mng)",
     y = "Cantidad de Países",
     caption = "Nota: La dispersión se analiza mediante la amplitud de la distribución."
