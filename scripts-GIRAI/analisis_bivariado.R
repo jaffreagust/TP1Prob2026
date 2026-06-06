@@ -1,25 +1,66 @@
-library(tidyverse)
-library(ggridges)
-library(gridExtra)
+library(ggplot2)
+library(dplyr)
+library(scales)
 
-# Ordenamos los niveles de la variable ordinal para que el gráfico tenga sentido lógico
-datos <- datos %>%
-  mutate(sec_mng = factor(sec_mng, 
-                          levels = c("Muy bajo", "Bajo", "Medio", "Alto", "Muy alto"),
-                          ordered = TRUE))
+# 1. Asegurar la jerarquía ordinal de la variable
+datos$sec_mng <- factor(datos$sec_mng, 
+                        levels = c("Muy bajo", "Bajo", "Medio", "Alto", "Muy alto"),
+                        ordered = TRUE)
 
-datos %>%
-  ggplot(aes(x = GIRAI_region, fill = sec_mng)) +
-  geom_bar(position = "fill") +
-  scale_y_continuous(labels = scales::percent) +
-  scale_fill_viridis_d(option = "mako", name = "Nivel Normativo") + # Escala perceptualmente uniforme
-  labs(title = "Distribución de Madurez Normativa por Región",
-       subtitle = "Análisis de composición relativa (Normalizado al 100%)",
-       x = "Región GIRAI",
-       y = "Proporción de Países") +
+# 2. Calcular frecuencias y porcentajes relativos por región
+resumen_composición <- datos %>%
+  group_by(GIRAI_region, sec_mng) %>%
+  summarise(n = n(), .groups = 'drop') %>%
+  group_by(GIRAI_region) %>%
+  mutate(
+    porcentaje = n / sum(n),
+    etiqueta = ifelse(porcentaje >= 0.05, scales::percent(porcentaje, accuracy = 1), "")
+  ) %>%
+  ungroup()
+
+# 3. EXTRAER EL ORDEN (Ranking de Excelencia Normativa)
+# Calculamos qué porcentaje de nivel "Muy alto" tiene cada región
+orden_excelencia <- resumen_composición %>%
+  group_by(GIRAI_region) %>%
+  # Sumamos el porcentaje solo donde sec_mng es "Muy alto". 
+  # Si una región no tiene países en este nivel, la suma devolverá 0 de forma segura.
+  summarise(pct_muy_alto = sum(porcentaje[sec_mng == "Muy alto"])) %>% 
+  # Ordenamos de menor a mayor (porque coord_flip invierte el orden visual, 
+  # dejando al mayor en la parte superior del gráfico)
+  arrange(pct_muy_alto) %>% 
+  pull(GIRAI_region)
+
+# Aplicamos este nuevo orden estricto a la variable regional
+resumen_composición$GIRAI_region <- factor(resumen_composición$GIRAI_region, 
+                                           levels = orden_excelencia)
+
+# 4. Construcción del gráfico
+ggplot(resumen_composición, aes(x = GIRAI_region, y = porcentaje, fill = sec_mng)) +
+  geom_bar(stat = "identity", position = "fill", color = "white", alpha = 0.9, width = 0.7) +
+  
+  geom_text(aes(label = etiqueta), 
+            position = position_fill(vjust = 0.5), 
+            size = 3.5, color = "gray10", fontface = "bold") +
+  
+  scale_fill_brewer(palette = "RdYlGn", name = "Nivel de Madurez") +
+  scale_y_continuous(labels = scales::percent_format()) +
+  
+  labs(
+    title = "Distribución de Madurez Normativa por Región",
+    subtitle = "Análisis de composición relativa (Normalizado al 100%)",
+    x = "Región",
+    y = "Proporción de Países"
+  ) +
+  
+  coord_flip() + 
+  
   theme_minimal() +
-  coord_flip() # Facilita la lectura de los nombres de las regione
-
+  theme(
+    legend.position = "bottom",
+    plot.title = element_text(face = "bold", size = 13),
+    panel.grid.major.y = element_blank(), 
+    panel.grid.minor = element_blank()
+  )
 
 #Girai_region vs Girai
 
