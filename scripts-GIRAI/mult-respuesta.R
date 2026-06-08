@@ -17,7 +17,7 @@ datos_cantidad <- datos %>%
   arrange(cantidad) %>%
   mutate(variable = recode(variable,
                            "p70_datpers" = "Protección de Datos y\n Privacidad",
-                           "p70_suphum" = "Supervición Humana",
+                           "p70_suphum" = "Supervisión Humana",
                            "p70_laboral" = "Protección Laboral y\n Derecho al Trabajo",
                            "p70_segu" = "Seguridad, Precisión y\n Fiabilidad",
                            "p70_transp" = "Transparencia y\n Explicabilidad"))
@@ -34,7 +34,7 @@ datos_cantidad %>%
             size = 4) +
   labs(x = "Cantidad de paises", 
        y = "Áreas temáticas", 
-       title = "Cantidad de paises con índices mayores a 70 puntos") +
+       title = "Cantidad de paises con índices mayores \n a 70 puntos por categoría. Año 2024") +
   theme_minimal() +
   theme(axis.text.y = element_text(size = 11),
         legend.position = "none")

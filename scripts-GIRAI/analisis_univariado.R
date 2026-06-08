@@ -35,7 +35,7 @@ ggplot(datos, aes(x = mng)) +
   
   # Títulos y formato
   labs(
-    title = "Distribución de Puntajes en Marcos Normativos (mng)",
+    title = "Distribución de Puntajes en Marcos Normativos (mng)\n por nivel. Año 2024",
     subtitle = "Análisis de tendencia central y dispersión global",
     x = "Puntaje mng (0 - 100)",
     y = "Frecuencia (Cantidad de Países)",
@@ -87,7 +87,7 @@ ggplot(resumen_frecuencias, aes(x = areas_mng, y = frecuencia)) +
            label = paste("Mediana:", mediana_val), color = "firebrick", fontface = "bold", hjust = 0) +
   
   labs(
-    title = "Diversidad Legislativa: Áreas Temáticas",
+    title = "Frecuencia de países por cantidad de areas temáticas reguladas en IA. Año 2024",
     subtitle = "Sombreado: Dispersión (Media ± 1 Desv. Estándar)",
     x = "Cantidad de Áreas Reguladas",
     y = "Número de Países (Frecuencia)"
@@ -140,7 +140,7 @@ ggplot(datos, aes(x = sec_mng, fill = sec_mng)) + # <-- Mapeamos el 'fill' a la 
   
   # Títulos y anotaciones técnicas
   labs(
-    title = "Frecuencia de Países por Nivel de Madurez Normativa (sec_mng)",
+    title = "Frecuencia de Países por Nivel de Madurez Normativa (sec_mng). Año 2024",
     subtitle = paste("Medida de posición: Moda en nivel '", med_cat, "'", sep=""),
     x = "Nivel de Desarrollo Normativo",
     y = "Cantidad de Países",
@@ -191,7 +191,7 @@ ggplot(resumen_region, aes(x = reorder(GIRAI_region, -frecuencia), y = frecuenci
   
   # Títulos y anotaciones técnicas para el documento
   labs(
-    title = "Frecuencia de Países por Región Global (GIRAI_region)",
+    title = "Frecuencia de Países por Región Global (GIRAI_region). Año 2024",
     subtitle = paste0("Medida de Posición (Moda): ", moda_cat, " (", frec_moda, " países)"),
     x = "Región Geográfica",
     y = "Cantidad de Países",

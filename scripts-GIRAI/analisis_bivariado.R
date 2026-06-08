@@ -46,7 +46,7 @@ ggplot(resumen_composición, aes(x = GIRAI_region, y = porcentaje, fill = sec_mn
   scale_y_continuous(labels = scales::percent_format()) +
   
   labs(
-    title = "Distribución de Madurez Normativa por Región",
+    title = "Distribución de Madurez Normativa por Región\n establecida por el índice GIRAI",
     subtitle = "Análisis de composición relativa (Normalizado al 100%)",
     x = "Región",
     y = "Proporción de Países"
@@ -71,7 +71,7 @@ library(ggridges)
 ggplot(datos, aes(x = reorder(GIRAI_region, GIRAI, FUN = median), y = GIRAI, fill = GIRAI_region)) +
   geom_boxplot(alpha = 0.7) +
   coord_flip() + # Horizontal para leer mejor los nombres de las regiones
-  labs(title = "Comparativa del Índice GIRAI por Región",
+  labs(title = "Comparativa de valor del Índice GIRAI por Región\n definida por el índice GIRAI",
        x = "Región (Ordenada por Mediana)",
        y = "Puntaje GIRAI") +
   theme_minimal() +
@@ -85,8 +85,8 @@ ggplot(datos, aes(x = mng, y = ag)) +
   geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "red") + # Línea de identidad (Referencia de coherencia)
   geom_smooth(method = "lm", color = "blue", fill = "lightgrey", alpha = 0.2) + # Tendencia global
   annotate("text", x = 70, y = 75, label = "Coherencia (y=x)", color = "red", angle = 45) +
-  labs(title = "Relación entre Marcos Normativos (mng) y Acciones (ag)",
-       subtitle = "Identificación de brechas de implementación (Gap Normativo-Ejecutivo)",
+  labs(title = "Relación entre Marcos Normativos (mng) y Acciones Gubernamentales (ag).",
+       subtitle = "",
        x = "Puntaje Marcos Normativos (Teoría)",
        y = "Puntaje Acciones Gubernamentales (Práctica)",
        color = "Región") +
